@@ -17,7 +17,7 @@ const LoadingSpinnerWrapper = styled('div')({
   left: '0',
   width: '100%',
   height: '100%',
-  background: '#1C1E2A',
+  background: '#2A2D3D',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
