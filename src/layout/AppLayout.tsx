@@ -37,7 +37,7 @@ const AppLayout = () => {
           <Library />
         </ContentBox>
       </Sidebar>
-      <ContentBox>
+      <ContentBox sx={{ padding: '8px 16px' }}>
         <Navbar />
         <Outlet />
       </ContentBox>
