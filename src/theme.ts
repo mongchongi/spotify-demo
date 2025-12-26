@@ -47,7 +47,7 @@ const theme = createTheme({
         },
         containedSecondary: {
           backgroundColor: '#ffffff',
-          color: '#000000',
+          color: '#1C1E2A',
           '&:hover': {
             backgroundColor: '#e0e0e0',
           },
