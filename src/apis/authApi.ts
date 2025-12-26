@@ -3,11 +3,7 @@ import { clientId, clientSecretId } from '../configs/authConfig';
 import type { ClientCredentialTokenResponse } from '../models/auth';
 
 const encodedBase64 = (data: string): string => {
-  if (typeof window !== 'undefined') {
-    return btoa(data);
-  } else {
-    return Buffer.from(data).toString('base64');
-  }
+  return btoa(data);
 };
 
 export const getClientCredentialToken = async (): Promise<ClientCredentialTokenResponse> => {
