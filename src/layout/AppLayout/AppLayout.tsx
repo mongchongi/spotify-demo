@@ -70,7 +70,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
 }));
 
 const Menu = styled('nav')({
-  padding: '24px 0',
+  padding: '8px 0',
 });
 
 const MenuList = styled('ul')({
