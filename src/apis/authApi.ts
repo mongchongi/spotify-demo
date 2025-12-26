@@ -6,7 +6,7 @@ const encodedBase64 = (data: string): string => {
   if (typeof window !== 'undefined') {
     return btoa(data);
   } else {
-    return Buffer.form(data).toString('base64');
+    return Buffer.from(data).toString('base64');
   }
 };
 
