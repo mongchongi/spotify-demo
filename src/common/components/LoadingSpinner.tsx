@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import equalizer from '../../../assets/equalizer.gif';
+import equalizer from '../../assets/equalizer.gif';
 
 const LoadingSpinner = () => {
   return (

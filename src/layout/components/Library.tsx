@@ -1,4 +1,4 @@
-import EmptyPlaylist from '../EmptyPlaylist/EmptyPlaylist';
+import EmptyPlaylist from './EmptyPlaylist';
 
 const Library = () => {
   return <EmptyPlaylist />;
