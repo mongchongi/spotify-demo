@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import SignInButton from '../../common/components/SignInButton';
 import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -7,7 +7,7 @@ const Navbar = () => {
   const { data: userProfile } = useGetCurrentUserProfile();
 
   return (
-    <Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'} height={'64px'}>
+    <Container>
       {!userProfile ? (
         <SignInButton />
       ) : userProfile.images[0]?.url ? (
@@ -15,8 +15,26 @@ const Navbar = () => {
       ) : (
         <AccountCircleIcon />
       )}
-    </Box>
+    </Container>
   );
 };
 
 export default Navbar;
+
+const Container = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  height: '64px',
+  paddingRight: '8px',
+  '& img': {
+    width: '44px',
+    height: '44px',
+    display: 'block',
+    borderRadius: '50%',
+  },
+  '& svg': {
+    width: '44px',
+    height: '44px',
+  },
+});
