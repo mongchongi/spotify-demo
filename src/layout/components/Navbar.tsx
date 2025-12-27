@@ -4,6 +4,7 @@ import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
 
 const Navbar = () => {
   const { data: userProfile } = useGetCurrentUserProfile();
+  console.log('🚀 ~ Navbar ~ userProfile:', userProfile);
 
   return (
     <Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'} height={'64px'}>
