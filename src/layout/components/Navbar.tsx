@@ -5,7 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
 
 const Navbar = () => {
-  const [showSignOut, setShowSignOut] = useState<boolean>(true);
+  const [showSignOut, setShowSignOut] = useState<boolean>(false);
 
   const { data: userProfile } = useGetCurrentUserProfile();
 
@@ -28,11 +28,9 @@ const Navbar = () => {
         <SignInButton />
       )}
       {showSignOut && (
-        <SignOut>
-          <SignOutButton size='large' onClick={handleSignOut}>
-            Sign out
-          </SignOutButton>
-        </SignOut>
+        <SignOutButton size='large' onClick={handleSignOut}>
+          Sign out
+        </SignOutButton>
       )}
     </Container>
   );
@@ -65,12 +63,9 @@ const Profile = styled(Box)({
   },
 });
 
-const SignOut = styled(Box)({
+const SignOutButton = styled(Button)(({ theme }) => ({
   position: 'absolute',
   right: '68px',
-});
-
-const SignOutButton = styled(Button)(({ theme }) => ({
   background: theme.palette.background.default,
   color: theme.palette.text.primary,
 }));
