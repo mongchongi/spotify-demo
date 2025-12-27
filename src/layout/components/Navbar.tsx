@@ -3,11 +3,9 @@ import SignInButton from '../../common/components/SignInButton';
 import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 
 const Navbar = () => {
   const [showSignOut, setShowSignOut] = useState<boolean>(false);
-  const queryClient = useQueryClient();
 
   const { data: userProfile } = useGetCurrentUserProfile();
 
@@ -17,7 +15,6 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem('access_token');
-    queryClient.invalidateQueries({ queryKey: ['current-user-profile'] });
     setShowSignOut(false);
   };
 
