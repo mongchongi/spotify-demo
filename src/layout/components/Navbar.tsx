@@ -10,10 +10,7 @@ const Navbar = () => {
     <Container>
       {userProfile ? (
         <Profile>
-          userProfile.images[0]?.url ? (
-          <img src={userProfile.images[0]?.url} />
-          ) : (
-          <AccountCircleIcon />)
+          {userProfile.images[0]?.url ? <img src={userProfile.images[0]?.url} /> : <AccountCircleIcon />}
         </Profile>
       ) : (
         <SignInButton />
