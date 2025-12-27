@@ -8,12 +8,15 @@ const Navbar = () => {
 
   return (
     <Container>
-      {!userProfile ? (
-        <SignInButton />
-      ) : userProfile.images[0]?.url ? (
-        <img src={userProfile.images[0]?.url} />
+      {userProfile ? (
+        <Profile>
+          userProfile.images[0]?.url ? (
+          <img src={userProfile.images[0]?.url} />
+          ) : (
+          <AccountCircleIcon />)
+        </Profile>
       ) : (
-        <AccountCircleIcon />
+        <SignInButton />
       )}
     </Container>
   );
@@ -27,14 +30,18 @@ const Container = styled(Box)({
   justifyContent: 'flex-end',
   height: '64px',
   paddingRight: '8px',
+});
+
+const Profile = styled(Box)({
+  width: '44px',
+  height: '44px',
+
   '& img': {
-    width: '44px',
-    height: '44px',
+    width: '100%',
     display: 'block',
     borderRadius: '50%',
   },
   '& svg': {
-    width: '44px',
-    height: '44px',
+    width: '100%',
   },
 });
