@@ -5,7 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useState } from 'react';
 
 const Navbar = () => {
-  const [showSignOut, setShowSignOut] = useState<boolean>(false);
+  const [showSignOut, setShowSignOut] = useState<boolean>(true);
 
   const { data: userProfile } = useGetCurrentUserProfile();
 
@@ -71,7 +71,6 @@ const SignOut = styled(Box)({
 });
 
 const SignOutButton = styled(Button)(({ theme }) => ({
-  borderRadius: '8px',
   background: theme.palette.background.default,
   color: theme.palette.text.primary,
 }));
