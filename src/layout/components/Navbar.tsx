@@ -10,8 +10,8 @@ const Navbar = () => {
     <Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'} height={'64px'}>
       {!userProfile ? (
         <SignInButton />
-      ) : userProfile.images[0].url ? (
-        <img src={userProfile.images[0].url} />
+      ) : userProfile.images[0]?.url ? (
+        <img src={userProfile.images[0]?.url} />
       ) : (
         <AccountCircleIcon />
       )}
