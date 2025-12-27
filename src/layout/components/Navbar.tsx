@@ -1,10 +1,13 @@
 import { Box } from '@mui/material';
 import SignInButton from '../../common/components/SignInButton';
+import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
 
 const Navbar = () => {
+  const { data: userProfile } = useGetCurrentUserProfile();
+
   return (
     <Box display={'flex'} alignItems={'center'} justifyContent={'flex-end'} height={'64px'}>
-      <SignInButton />
+      {userProfile ? <img src={userProfile.images[0]?.url} alt='' /> : <SignInButton />}
     </Box>
   );
 };
