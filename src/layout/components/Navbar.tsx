@@ -50,6 +50,7 @@ const Container = styled(Box)({
 const Profile = styled(Box)({
   width: '44px',
   height: '44px',
+  cursor: 'pointer',
 
   '& img': {
     width: '100%',
