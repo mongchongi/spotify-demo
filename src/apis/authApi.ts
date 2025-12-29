@@ -4,7 +4,11 @@ import type { ClientCredentialTokenResponse, ExchangeTokenResponse } from '../mo
 import { REDIRECT_URI } from '../configs/commonConfig';
 
 const encodedBase64 = (data: string): string => {
-  return btoa(data);
+  if (typeof window !== 'undefined') {
+    return btoa(data);
+  } else {
+    return Buffer.from(data).toString('base64');
+  }
 };
 
 export const getClientCredentialToken = async (): Promise<ClientCredentialTokenResponse> => {
