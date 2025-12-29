@@ -9,7 +9,6 @@ import { useEffect } from 'react';
 const Library = () => {
   const { ref, inView } = useInView();
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetCurrentUserPlaylists({ limit: 10, offset: 0 });
-  console.log('🚀 ~ Library ~ data:', data);
 
   const { data: user } = useGetCurrentUserProfile();
 
