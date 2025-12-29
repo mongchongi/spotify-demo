@@ -19,7 +19,14 @@ const App = () => {
 
   useEffect(() => {
     if (code && codeVerifier) {
-      exchangeToken({ code, codeVerifier });
+      exchangeToken(
+        { code, codeVerifier },
+        {
+          onSuccess: () => {
+            window.history.replaceState({}, document.title, window.location.pathname);
+          },
+        }
+      );
     }
   }, [code, codeVerifier, exchangeToken]);
 
