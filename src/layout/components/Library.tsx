@@ -1,7 +1,7 @@
 import useGetCurrentUserPlaylists from '../../hooks/useGetCurrentUserPlaylists';
 import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
 import EmptyPlaylist from './EmptyPlaylist';
-import { display, margin, styled } from '@mui/system';
+import { styled } from '@mui/system';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
@@ -31,7 +31,7 @@ const Library = () => {
         <Playlists>
           {data?.pages.map((page) =>
             page.items.map((playlist) => (
-              <li>
+              <li key={playlist.id}>
                 <Playlist>
                   {playlist.images ? (
                     <PlaylistImage src={playlist.images[0].url} alt='' />
