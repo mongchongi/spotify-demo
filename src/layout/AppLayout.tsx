@@ -32,7 +32,7 @@ const AppLayout = () => {
             </MenuList>
           </Menu>
         </ContentBox>
-        <ContentBox height={'100%'}>
+        <ContentBox sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
           <LibraryHead />
           <Library />
         </ContentBox>
