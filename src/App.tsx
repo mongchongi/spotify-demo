@@ -28,6 +28,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<AppLayout />}>
           <Route index element={<HomePage />} />
+          <Route path='callback' element={<HomePage />} />
           <Route path='search' element={<SearchPage />} />
           <Route path='search/:keyword' element={<SearchWithKeywordPage />} />
           {/* <Route path='playlist' element={<PlaylistPage />} /> */}
