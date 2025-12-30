@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem('access_token');
-    setShowSignOut(false);
+    window.location.reload();
   };
 
   return (
