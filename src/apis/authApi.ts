@@ -3,9 +3,7 @@ import { CLIENT_ID, CLIENT_SECRET_ID } from '../configs/authConfig';
 import type { ClientCredentialTokenResponse, ExchangeTokenResponse } from '../models/auth';
 import { REDIRECT_URI } from '../configs/commonConfig';
 
-const encodedBase64 = (data: string): string => {
-  return btoa(data);
-};
+const encodedBase64 = btoa(`${CLIENT_ID}:${CLIENT_SECRET_ID}`);
 
 export const getClientCredentialToken = async (): Promise<ClientCredentialTokenResponse> => {
   try {
@@ -15,7 +13,7 @@ export const getClientCredentialToken = async (): Promise<ClientCredentialTokenR
 
     const response = await axios.post('https://accounts.spotify.com/api/token', body, {
       headers: {
-        Authorization: `Basic ${encodedBase64(CLIENT_ID + ':' + CLIENT_SECRET_ID)}`,
+        Authorization: `Basic ${encodedBase64}`,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });

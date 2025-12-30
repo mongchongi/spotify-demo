@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { Route, Routes } from 'react-router';
 import LoadingSpinner from './common/components/LoadingSpinner';
 import useExchangeToken from './hooks/useExchangeToken';
@@ -12,15 +12,23 @@ const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage/NotFoundPage'
 
 const App = () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const code = urlParams.get('code');
+  let code = urlParams.get('code');
   const codeVerifier = localStorage.getItem('code_verifier');
+
+  const ranRef = useRef(false);
 
   const { mutate: exchangeToken } = useExchangeToken();
 
   useEffect(() => {
     if (code && codeVerifier) {
+      ranRef.current = true;
+
       exchangeToken({ code, codeVerifier });
     }
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete('code');
+    window.history.replaceState({}, '', url.toString());
   }, [code, codeVerifier, exchangeToken]);
 
   return (
