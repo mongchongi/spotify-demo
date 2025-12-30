@@ -1,5 +1,5 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
 interface PlaylistItemProps {
   id: string;
@@ -17,13 +17,15 @@ const PlaylistItem = ({ id, image, name, artistName, handleNavigatePlaylistDetai
         borderRadius: '8px',
         cursor: 'pointer',
         '&:hover': {
-          background: '#2A2D3D',
+          background: '#2a2d3d',
         },
       }}
       onClick={() => handleNavigatePlaylistDetailPage(id)}
     >
       <ListItemAvatar>
-        <Avatar sx={{ borderRadius: '8px' }}>{image ? <img src={image} /> : <ImageNotSupportedIcon />}</Avatar>
+        <Avatar src={image || undefined} variant='rounded' sx={{ width: '50px', height: '50px' }}>
+          {!image && <MusicNoteIcon />}
+        </Avatar>
       </ListItemAvatar>
       <ListItemText
         sx={{
