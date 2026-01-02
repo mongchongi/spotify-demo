@@ -1,4 +1,4 @@
-import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import { Avatar, ListItem, ListItemAvatar, ListItemText, styled } from '@mui/material';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
 interface PlaylistItemProps {
@@ -7,18 +7,21 @@ interface PlaylistItemProps {
   name: string;
   artistName: string | null;
   handleNavigatePlaylistDetailPage: (id: string) => void;
+  isActive: boolean;
 }
 
-const PlaylistItem = ({ id, image, name, artistName, handleNavigatePlaylistDetailPage }: PlaylistItemProps) => {
+const PlaylistItem = ({
+  id,
+  image,
+  name,
+  artistName,
+  handleNavigatePlaylistDetailPage,
+  isActive,
+}: PlaylistItemProps) => {
   return (
-    <ListItem
+    <StyledListItem
       sx={{
-        padding: '4px 8px',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        '&:hover': {
-          background: '#2a2d3d',
-        },
+        background: isActive ? '#2A2D3D' : 'transparent',
       }}
       onClick={() => handleNavigatePlaylistDetailPage(id)}
     >
@@ -43,8 +46,17 @@ const PlaylistItem = ({ id, image, name, artistName, handleNavigatePlaylistDetai
         primary={name}
         secondary={artistName}
       />
-    </ListItem>
+    </StyledListItem>
   );
 };
 
 export default PlaylistItem;
+
+const StyledListItem = styled(ListItem)(({ theme }) => ({
+  padding: '4px 8px',
+  borderRadius: '8px',
+  cursor: 'pointer',
+  '&:hover': {
+    background: theme.palette.background.default,
+  },
+}));

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import PlaylistItem from '../../common/components/PlaylistItem';
 import type { SimplifiedPlaylist } from '../../models/playlist';
 
@@ -8,6 +8,8 @@ interface PlaylistProps {
 
 const Playlist = ({ playlists }: PlaylistProps) => {
   const navigate = useNavigate();
+
+  const { id: currentId } = useParams();
 
   const handleNavigatePlaylistDetailPage = (id: string) => {
     navigate(`/playlist/${id}`);
@@ -23,6 +25,7 @@ const Playlist = ({ playlists }: PlaylistProps) => {
           name={item.name || ''}
           artistName={`Playlist • ${item.owner?.display_name}`}
           handleNavigatePlaylistDetailPage={handleNavigatePlaylistDetailPage}
+          isActive={currentId === item.id}
         />
       ))}
     </>

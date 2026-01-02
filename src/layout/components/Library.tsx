@@ -37,7 +37,7 @@ const Library = () => {
               <Playlist key={index} playlists={page.items} />
             ))}
           </List>
-          <div ref={ref} style={{ minHeight: '5px', padding: '0 8px' }}>
+          <div ref={ref} style={{ padding: '1px 8px 0' }}>
             {isFetchingNextPage && <LoadingMessage>Loading...</LoadingMessage>}
           </div>
         </PlaylistContainer>
@@ -50,11 +50,11 @@ export default Library;
 
 const PlaylistContainer = styled('div')({
   overflow: 'auto',
-  height: '100%',
+  flex: '1',
+  msOverflowStyle: 'none',
+  scrollbarWidth: 'none',
   '&::-webkit-scrollbar': {
     display: 'none',
-    msOverflowStyle: 'none',
-    scrollbarWidth: 'none',
   },
 });
 

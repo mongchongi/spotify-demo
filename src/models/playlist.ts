@@ -35,6 +35,20 @@ export interface Playlist extends BasePlaylist {
   tracks: ApiResponse<PlaylistTrack>;
 }
 
+export interface GetPlaylistRequest {
+  playlist_id: string;
+  market?: string;
+  fields?: string;
+  additional_types?: string;
+}
+
+export interface GetPlaylistItemsRequest extends GetPlaylistRequest {
+  limit?: number;
+  offset?: number;
+}
+
+export type GetPlaylistItemsResponse = ApiResponse<PlaylistTrack>;
+
 export interface PlaylistTrack {
   added_at?: string | null;
   added_by?: {
@@ -47,11 +61,4 @@ export interface PlaylistTrack {
   } | null;
   is_local?: boolean;
   track: Track | Episode;
-}
-
-export interface GetPlaylistRequest {
-  playlist_id: string;
-  market?: string;
-  fields?: string;
-  additional_types?: string;
 }

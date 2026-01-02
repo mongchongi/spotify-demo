@@ -58,7 +58,7 @@ export interface Episode {
 export interface Show {
   available_markets: string[];
   copyrights: {
-    text?: string;
+text?: string;                                                        
     type?: string;
   };
   description: string;

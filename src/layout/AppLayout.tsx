@@ -32,12 +32,14 @@ const AppLayout = () => {
             </MenuList>
           </Menu>
         </ContentBox>
-        <ContentBox sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <ContentBox
+          sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '8px 8px 16px' }}
+        >
           <LibraryHead />
           <Library />
         </ContentBox>
       </Sidebar>
-      <ContentBox sx={{ padding: '8px 16px' }}>
+      <ContentBox sx={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', gap: '16px', padding: '16px' }}>
         <Navbar />
         <Outlet />
       </ContentBox>
