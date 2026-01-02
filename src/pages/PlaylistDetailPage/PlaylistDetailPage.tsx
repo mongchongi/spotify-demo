@@ -19,7 +19,6 @@ import DesktopPlaylistItem from './components/DesktopPlaylistItem';
 import { PAGE_LIMIT } from '../../configs/commonConfig';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import { BorderBottom } from '@mui/icons-material';
 
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();

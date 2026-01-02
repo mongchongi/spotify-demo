@@ -9,7 +9,7 @@ interface PlaylistProps {
 const Playlist = ({ playlists }: PlaylistProps) => {
   const navigate = useNavigate();
 
-  const { id: currentId } = useParams();
+  const { id: currentId } = useParams<{ id: string }>();
 
   const handleNavigatePlaylistDetailPage = (id: string) => {
     navigate(`/playlist/${id}`);
