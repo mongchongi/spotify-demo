@@ -30,8 +30,6 @@ const PlaylistDetailPage = () => {
 
   const { ref, inView } = useInView();
 
-  const navigate = useNavigate();
-
   const {
     data: playlist,
     error: playlistError,
