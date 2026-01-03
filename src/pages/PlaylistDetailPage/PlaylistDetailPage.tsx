@@ -1,4 +1,4 @@
-import { Navigate, NavLink, useNavigate, useParams } from 'react-router';
+import { Navigate, NavLink, useParams } from 'react-router';
 import useGetPlaylist from '../../hooks/useGetPlaylist';
 import spotifyIcon from '../../assets/spotify.png';
 import {
