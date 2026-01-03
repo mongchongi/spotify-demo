@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router';
+import { Navigate, NavLink, useNavigate, useParams } from 'react-router';
 import useGetPlaylist from '../../hooks/useGetPlaylist';
 import spotifyIcon from '../../assets/spotify.png';
 import {
@@ -29,6 +29,8 @@ const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
 
   const { ref, inView } = useInView();
+
+  const navigate = useNavigate();
 
   const {
     data: playlist,
@@ -73,6 +75,7 @@ const PlaylistDetailPage = () => {
               Please Sign in again.
             </Typography>
             <SignInButton />
+            <HomeLink to={'/'}>Go to Home</HomeLink>
           </AgainSignInContainer>
         );
       }
@@ -149,6 +152,13 @@ const PlaylistDetailPage = () => {
 };
 
 export default PlaylistDetailPage;
+
+const HomeLink = styled(NavLink)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  '&:hover': {
+    color: theme.palette.primary.main,
+  },
+}));
 
 const AgainSignInContainer = styled(Box)(({ theme }) => ({
   position: 'fixed',
