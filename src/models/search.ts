@@ -4,15 +4,17 @@ import type { Artist } from './artist';
 import type { SimplifiedPlaylist } from './playlist';
 import type { Show, SimplifiedAudioBook, SimplifiedEpisode, Track } from './track';
 
-export enum SEARCH_TYPE {
-  Track = 'track',
-  Album = 'album',
-  Playlist = 'playlist',
-  Show = 'show',
-  Episode = 'episode',
-  AudioBook = 'audiobook',
-  Artist = 'artist',
-}
+export const searchType = {
+  Track: 'track',
+  Album: 'album',
+  Playlist: 'playlist',
+  Show: 'show',
+  Episode: 'episode',
+  AudioBook: 'audiobook',
+  Artist: 'artist',
+};
+
+export type SEARCH_TYPE = (typeof searchType)[keyof typeof searchType];
 
 export interface SearchRequestParams {
   q: string;

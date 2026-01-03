@@ -1,7 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import { useState } from 'react';
 import useSearchItemsByKeyword from '../../../hooks/useSearchItemsByKeyword';
-import { SEARCH_TYPE } from '../../../models/search';
+import { searchType } from '../../../models/search';
 import SearchResultList from './SearchResultList';
 import SearchIcon from '@mui/icons-material/Search';
 import type { Track } from '../../../models/track';
@@ -10,7 +10,7 @@ const EmptyPlaylistWithSearch = () => {
   const [keyword, setKeyword] = useState<string>('');
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useSearchItemsByKeyword({
     q: keyword,
-    type: [SEARCH_TYPE.Track],
+    type: [searchType.Track],
   });
 
   const tracks =
