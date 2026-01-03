@@ -1,8 +1,22 @@
 import { Box, Button, styled, Typography } from '@mui/material';
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import AddIcon from '@mui/icons-material/Add';
+import useCreatePlaylist from '../../hooks/useCreatePlaylist';
+import useGetCurrentUserProfile from '../../hooks/useGetCurrentUserProfile';
+import { getSpotifyAuthUrl } from '../../utils/auth';
 
 const LibraryHead = () => {
+  const { mutate: createPlaylist } = useCreatePlaylist();
+  const { data: userProfile } = useGetCurrentUserProfile();
+
+  const handleCreatePlaylist = () => {
+    if (userProfile) {
+      createPlaylist({ name: 'My Playlist' });
+    } else {
+      getSpotifyAuthUrl();
+    }
+  };
+
   return (
     <Container>
       <LibraryTitleBox>
@@ -11,7 +25,7 @@ const LibraryHead = () => {
           Your Library
         </Typography>
       </LibraryTitleBox>
-      <Button>
+      <Button onClick={handleCreatePlaylist}>
         <AddIcon />
       </Button>
     </Container>

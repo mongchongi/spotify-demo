@@ -19,20 +19,34 @@ import DesktopPlaylistItem from './components/DesktopPlaylistItem';
 import { PAGE_LIMIT } from '../../configs/commonConfig';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import EmptyPlaylistWithSearch from './components/EmptyPlaylistWithSearch';
+import LoadingSpinner from '../../common/components/LoadingSpinner';
+import SignInButton from '../../common/components/SignInButton';
+import ErrorMessage from '../../common/components/ErrorMessage';
+import axios from 'axios';
 
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
 
   const { ref, inView } = useInView();
 
-  const { data: playlist } = useGetPlaylist({ playlist_id: id || '' });
+  const {
+    data: playlist,
+    error: playlistError,
+    isLoading: isPlaylistLoading,
+  } = useGetPlaylist({ playlist_id: id || '' });
 
   const {
     data: playlistItems,
+    error: playlistItemsError,
+    isLoading: isPlaylistItemsLoading,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
   } = useGetPlaylistItems({ playlist_id: id || '', limit: PAGE_LIMIT });
+
+  const isLoading = isPlaylistLoading || isPlaylistItemsLoading;
+  const error = playlistError || playlistItemsError;
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -44,8 +58,31 @@ const PlaylistDetailPage = () => {
     return <Navigate to={'/'} />;
   }
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    const isError = axios.isAxiosError(error);
+
+    if (isError) {
+      if (error.status === 401) {
+        return (
+          <AgainSignInContainer>
+            <Typography variant='h2' fontSize={'24px'} fontWeight={700}>
+              Please Sign in again.
+            </Typography>
+            <SignInButton />
+          </AgainSignInContainer>
+        );
+      }
+    }
+
+    return <ErrorMessage errorMessage='failed to load'></ErrorMessage>;
+  }
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', gap: '16px' }}>
       <PlaylistHeader>
         <PlaylistHeaderImage src={playlist?.images && playlist?.images[0].url} variant='rounded'>
           {!playlist?.images && <MusicNoteIcon />}
@@ -60,7 +97,7 @@ const PlaylistDetailPage = () => {
         </PlaylistHeaderInfo>
       </PlaylistHeader>
       {playlist?.tracks?.total === 0 ? (
-        <Typography>Search</Typography>
+        <EmptyPlaylistWithSearch />
       ) : (
         <StyleTableContainer>
           <Table stickyHeader>
@@ -113,6 +150,20 @@ const PlaylistDetailPage = () => {
 
 export default PlaylistDetailPage;
 
+const AgainSignInContainer = styled(Box)(({ theme }) => ({
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '16px',
+  background: theme.palette.background.default,
+}));
+
 const PlaylistHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-end',
@@ -143,7 +194,7 @@ const PlaylistHeaderImage = styled(Avatar)(({ theme }) => ({
     height: '20%',
   },
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('sm')]: {
     width: '100%',
     height: 'auto',
     aspectRatio: '1 / 1',

@@ -33,6 +33,7 @@ export interface SimplifiedPlaylist extends BasePlaylist {
 
 export interface Playlist extends BasePlaylist {
   tracks: ApiResponse<PlaylistTrack>;
+  followers: Followers;
 }
 
 export interface GetPlaylistRequest {
@@ -61,4 +62,11 @@ export interface PlaylistTrack {
   } | null;
   is_local?: boolean;
   track: Track | Episode;
+}
+
+export interface CreatePlaylistRequest {
+  name: string;
+  playlistPublic?: boolean;
+  collaborative?: boolean;
+  description?: string;
 }
