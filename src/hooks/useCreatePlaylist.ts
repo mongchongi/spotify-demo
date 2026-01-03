@@ -9,7 +9,7 @@ const useCreatePlaylist = () => {
 
   return useMutation({
     mutationFn: (params: CreatePlaylistRequest) => {
-      if (user) {
+      if (user?.id) {
         return createPlaylist(user.id, params);
       }
 

@@ -4,15 +4,17 @@ import useSearchItemsByKeyword from '../../../hooks/useSearchItemsByKeyword';
 import { SEARCH_TYPE } from '../../../models/search';
 import SearchResultList from './SearchResultList';
 import SearchIcon from '@mui/icons-material/Search';
+import type { Track } from '../../../models/track';
 
 const EmptyPlaylistWithSearch = () => {
   const [keyword, setKeyword] = useState<string>('');
-  const { data, error, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useSearchItemsByKeyword({
+  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useSearchItemsByKeyword({
     q: keyword,
     type: [SEARCH_TYPE.Track],
   });
 
-  const tracks = data?.pages.flatMap((page) => page.tracks?.items) ?? [];
+  const tracks =
+    data?.pages.flatMap((page) => page.tracks?.items ?? []).filter((track): track is Track => !!track) ?? [];
   const hasResults = tracks.length > 0;
 
   const handleSearchKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
