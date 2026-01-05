@@ -15,6 +15,8 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import AddIcon from '@mui/icons-material/Add';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
+import { useParams } from 'react-router';
+import useAddTrackToPlaylist from '../../../hooks/useAddTrackToPlaylist';
 
 interface SearchResultListProps {
   list: Track[];
@@ -25,6 +27,17 @@ interface SearchResultListProps {
 
 const SearchResultList = ({ list, hasNextPage, isFetchingNextPage, fetchNextPage }: SearchResultListProps) => {
   const [ref, inView] = useInView();
+
+  const { id: playlist_id } = useParams<{ id: string }>();
+
+  const { mutate: addPlaylist } = useAddTrackToPlaylist(playlist_id || '');
+
+  const handleAddPlaylist = (trackUri: string | undefined) => {
+    if (!trackUri) {
+      throw new Error('track uri is not defined');
+    }
+    addPlaylist(trackUri);
+  };
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -53,7 +66,7 @@ const SearchResultList = ({ list, hasNextPage, isFetchingNextPage, fetchNextPage
               </TableCell>
               <TableCell>{track.album?.name}</TableCell>
               <TableCell>
-                <Button>
+                <Button onClick={() => handleAddPlaylist(track.uri)}>
                   <AddIcon />
                 </Button>
               </TableCell>

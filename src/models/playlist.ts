@@ -70,3 +70,7 @@ export interface CreatePlaylistRequest {
   collaborative?: boolean;
   description?: string;
 }
+
+export interface AddItemsToPlaylistResponse {
+  snapshot_id: string;
+}
