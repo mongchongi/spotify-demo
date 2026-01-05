@@ -72,7 +72,7 @@ const StyledTextField = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   padding: '12px',
   background: theme.palette.background.default,
-  borderRadius: '8px',
+  borderRadius: '50px',
   gap: '8px',
 
   '& input': {

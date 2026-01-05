@@ -1,4 +1,4 @@
-import { Avatar, ListItem, ListItemAvatar, ListItemText, styled } from '@mui/material';
+import { Avatar, ListItem, ListItemAvatar, ListItemButton, ListItemText, styled } from '@mui/material';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
 interface PlaylistItemProps {
@@ -19,41 +19,43 @@ const PlaylistItem = ({
   isActive,
 }: PlaylistItemProps) => {
   return (
-    <StyledListItem
+    <ListItem
       sx={{
-        background: isActive ? '#2A2D3D' : 'transparent',
+        padding: '0',
       }}
       onClick={() => handleNavigatePlaylistDetailPage(id)}
     >
-      <ListItemAvatar>
-        <Avatar src={image || undefined} variant='rounded' sx={{ width: '50px', height: '50px' }}>
-          {!image && <MusicNoteIcon />}
-        </Avatar>
-      </ListItemAvatar>
-      <ListItemText
-        sx={{
-          '& span, p': {
-            maxWidth: '180px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          },
-          '& span': {
-            fontWeight: '700',
-            color: '#A852F6',
-          },
-        }}
-        primary={name}
-        secondary={artistName}
-      />
-    </StyledListItem>
+      <StyledListItemButton sx={{ background: `${isActive ? '#2A2D3D' : 'undefined'}` }}>
+        <ListItemAvatar>
+          <Avatar src={image || undefined} variant='rounded' sx={{ width: '50px', height: '50px' }}>
+            {!image && <MusicNoteIcon />}
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          sx={{
+            '& span, p': {
+              maxWidth: '180px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            },
+            '& span': {
+              fontWeight: '700',
+              color: '#A852F6',
+            },
+          }}
+          primary={name}
+          secondary={artistName}
+        />
+      </StyledListItemButton>
+    </ListItem>
   );
 };
 
 export default PlaylistItem;
 
-const StyledListItem = styled(ListItem)(({ theme }) => ({
-  padding: '4px 8px',
+const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+  padding: '8px',
   borderRadius: '8px',
   cursor: 'pointer',
   '&:hover': {

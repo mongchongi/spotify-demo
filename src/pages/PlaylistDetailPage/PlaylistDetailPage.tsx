@@ -52,7 +52,7 @@ const PlaylistDetailPage = () => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [inView]);
+  }, [inView, hasNextPage, isFetchingNextPage]);
 
   if (id === undefined) {
     return <Navigate to={'/'} />;
