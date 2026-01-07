@@ -1,4 +1,5 @@
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -14,7 +15,10 @@ import type { Track } from '../../../models/track';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import PlaylistModal from './PlaylistModal';
+import useGetCurrentUserProfile from '../../../hooks/useGetCurrentUserProfile';
+import { getSpotifyAuthUrl } from '../../../utils/auth';
 
 interface SongsProps {
   tracks: Track[];
@@ -24,6 +28,11 @@ interface SongsProps {
 }
 
 const Songs = ({ tracks, hasNextPage, isFetchingNextPage, fetchNextPage }: SongsProps) => {
+  const [openedTrackId, setOpenedTrackId] = useState<string | undefined>(undefined);
+  const [successAlertOpen, setSuccessAlertOpen] = useState<boolean>(false);
+
+  const { data: userProfile } = useGetCurrentUserProfile();
+
   const { ref, inView } = useInView();
 
   const formatDuration = (millisecond: number | undefined): string => {
@@ -37,6 +46,22 @@ const Songs = ({ tracks, hasNextPage, isFetchingNextPage, fetchNextPage }: Songs
     return `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
   };
 
+  const handleShowPlaylistModal = (trackId: string) => {
+    if (userProfile) {
+      setOpenedTrackId(trackId);
+    } else {
+      getSpotifyAuthUrl();
+    }
+  };
+
+  const handleSuccessAlertOpen = () => {
+    setSuccessAlertOpen(true);
+
+    setTimeout(() => {
+      setSuccessAlertOpen(false);
+    }, 2000);
+  };
+
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -45,6 +70,11 @@ const Songs = ({ tracks, hasNextPage, isFetchingNextPage, fetchNextPage }: Songs
 
   return (
     <Container>
+      {successAlertOpen && (
+        <Alert sx={{ position: 'absolute', bottom: '16px', right: '16px' }} severity='success'>
+          The song has been added to your playlist!
+        </Alert>
+      )}
       <Typography variant='h1' fontWeight={700}>
         Songs
       </Typography>
@@ -66,10 +96,19 @@ const Songs = ({ tracks, hasNextPage, isFetchingNextPage, fetchNextPage }: Songs
                     {track.artists ? track.artists[0]?.name : 'unknown'}
                   </Typography>
                 </TableCell>
-                <TableCell width={'80px'}>
-                  <Button>
+                <TableCell width={'80px'} sx={{ position: 'relative' }}>
+                  <Button className='add-playlist-button' onClick={() => track.id && handleShowPlaylistModal(track.id)}>
                     <AddCircleOutlineIcon />
                   </Button>
+                  {openedTrackId === track.id && (
+                    <Box>
+                      <PlaylistModal
+                        trackUri={track.uri}
+                        onClose={() => setOpenedTrackId(undefined)}
+                        onSuccess={handleSuccessAlertOpen}
+                      />
+                    </Box>
+                  )}
                 </TableCell>
                 <TableCell width={'51px'}>{formatDuration(track.duration_ms)}</TableCell>
               </TableRow>
@@ -120,14 +159,13 @@ const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
     background: theme.palette.background.default,
   },
 
-  '& .MuiButtonBase-root': {
-    color: theme.palette.text.secondary,
+  '& .MuiTableCell-root .add-playlist-button': {
     visibility: 'hidden',
-    cursor: 'pointer',
   },
 
-  '& .MuiTableRow-root:hover .MuiButtonBase-root': {
+  '& .MuiTableRow-root:hover .add-playlist-button': {
     visibility: 'visible',
+    cursor: 'pointer',
   },
 
   '& .MuiButtonBase-root:hover': {

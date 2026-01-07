@@ -4,7 +4,6 @@ import { PAGE_LIMIT } from '../configs/commonConfig';
 
 const useAddTrackToPlaylist = (playlist_id: string) => {
   const queryClient = useQueryClient();
-  const params = { playlist_id, limit: PAGE_LIMIT };
 
   return useMutation({
     mutationFn: (trackUri: string) => {
@@ -12,7 +11,7 @@ const useAddTrackToPlaylist = (playlist_id: string) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['current-user-playlists'] });
-      queryClient.invalidateQueries({ queryKey: ['playlist-items', params] });
+      queryClient.invalidateQueries({ queryKey: ['playlist-items', { playlist_id, limit: PAGE_LIMIT }] });
       queryClient.invalidateQueries({ queryKey: ['playlist-detail', playlist_id] });
       console.log('success');
     },

@@ -38,7 +38,6 @@ const MediaCardList = <T extends Partial<MediaItem>>({
       </Typography>
       <StyledList>
         {items.map((item, index) => {
-          console.log(item);
           return (
             <ListItem key={`${index}_${item.id}`} sx={{ padding: '0' }}>
               <StyledListItemInfo>
