@@ -24,7 +24,7 @@ const PlaylistModal = ({ trackUri, onClose, onSuccess }: PlaylistModalProps) => 
   const queryClient = useQueryClient();
   const { mutate: addTrack } = useMutation({
     mutationFn: ({ pId, tUri }: { pId: string; tUri: string }) => addItemsToPlaylist(pId, [tUri]),
-    onSuccess: (data, variables) => {
+    onSuccess: (_data, variables) => {
       const { pId } = variables;
 
       queryClient.invalidateQueries({ queryKey: ['current-user-playlists'] });
