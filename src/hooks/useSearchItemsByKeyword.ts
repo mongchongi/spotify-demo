@@ -1,12 +1,17 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { searchItemsByKeyword } from '../apis/searchApi';
 import type { SearchRequestParams } from '../models/search';
-import useClientCredentialToken from './useClientCredentialToken';
+import { getClientCredentialToken } from '../apis/authApi';
 
 const useSearchItemsByKeyword = (params: SearchRequestParams) => {
-  const clientCredentialToken = useClientCredentialToken();
+  const { data: tokenData, isLoading: isTokenLoading } = useQuery({
+    queryKey: ['client-credent-token'],
+    queryFn: getClientCredentialToken,
+  });
 
-  return useInfiniteQuery({
+  const clientCredentialToken = tokenData?.access_token;
+
+  const queryResult = useInfiniteQuery({
     queryKey: ['search', params],
     queryFn: ({ pageParam = 0 }) => {
       if (!clientCredentialToken) {
@@ -33,8 +38,10 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
 
       return undefined;
     },
-    enabled: !!params.q,
+    enabled: !!params.q && !!clientCredentialToken,
   });
+
+  return { ...queryResult, isCombinedLoading: isTokenLoading || (!!clientCredentialToken && queryResult.isLoading) };
 };
 
 export default useSearchItemsByKeyword;

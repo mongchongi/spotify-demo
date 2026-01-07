@@ -1,14 +1,11 @@
 import { Box, styled, Typography } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import CategoryList from './components/CategoryList';
+import SearchForm from '../../common/components/SearchForm';
 
 const SearchPage = () => {
   return (
     <Container>
-      <StyledTextField>
-        <SearchIcon />
-        <input type='text' placeholder='Search...' />
-      </StyledTextField>
+      <SearchForm />
       <Box sx={{ margin: '16px 0 12px' }}>
         <Typography variant='h1' fontWeight={700}>
           Browse all
@@ -26,23 +23,3 @@ const Container = styled(Box)({
   flexDirection: 'column',
   overflow: 'hidden',
 });
-
-const StyledTextField = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: '12px',
-  background: theme.palette.background.default,
-  borderRadius: '50px',
-  gap: '8px',
-
-  '& input': {
-    flex: '1',
-    background: 'transparent',
-    border: 'none',
-    color: theme.palette.text.primary,
-
-    '&:focus': {
-      outline: 'none',
-    },
-  },
-}));

@@ -49,29 +49,31 @@ const SearchResultList = ({ list, hasNextPage, isFetchingNextPage, fetchNextPage
     <StyledTableContainer>
       <Table>
         <TableBody>
-          {list.map((track) => (
-            <StyledTableRow key={track.id}>
-              <TableCell>
-                <AlbumContainer>
-                  <Avatar src={track.album?.images[0].url} variant='rounded' sx={{ width: '50px', height: '50px' }}>
-                    {!track.album?.images[0] && <MusicNoteIcon />}
-                  </Avatar>
-                  <Box>
-                    <Typography fontWeight={700}>{track.name}</Typography>
-                    <Typography color='text.secondary' fontSize={'12px'}>
-                      {track.artists ? track.artists[0].name : 'Unknown Artist'}
-                    </Typography>
-                  </Box>
-                </AlbumContainer>
-              </TableCell>
-              <TableCell>{track.album?.name}</TableCell>
-              <TableCell>
-                <Button onClick={() => handleAddPlaylist(track.uri)}>
-                  <AddIcon />
-                </Button>
-              </TableCell>
-            </StyledTableRow>
-          ))}
+          {list.map((track, index) => {
+            return (
+              <StyledTableRow key={`${index}_${track.id}`}>
+                <TableCell>
+                  <AlbumContainer>
+                    <Avatar src={track.album?.images[0].url} variant='rounded' sx={{ width: '50px', height: '50px' }}>
+                      {!track.album?.images[0] && <MusicNoteIcon />}
+                    </Avatar>
+                    <Box>
+                      <Typography fontWeight={700}>{track.name}</Typography>
+                      <Typography color='text.secondary' fontSize={'12px'}>
+                        {track.artists ? track.artists[0].name : 'Unknown Artist'}
+                      </Typography>
+                    </Box>
+                  </AlbumContainer>
+                </TableCell>
+                <TableCell>{track.album?.name}</TableCell>
+                <TableCell>
+                  <Button onClick={() => handleAddPlaylist(track.uri)}>
+                    <AddIcon />
+                  </Button>
+                </TableCell>
+              </StyledTableRow>
+            );
+          })}
           <StyledTableRow
             sx={{
               '& .MuiTableCell-root': {
