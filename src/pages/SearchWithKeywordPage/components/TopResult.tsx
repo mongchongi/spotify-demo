@@ -8,7 +8,7 @@ interface TopResultProps {
 
 const TopResult = ({ track }: TopResultProps) => {
   const imageUrl = track.album?.images[0]?.url;
-  const artistName = track.artists ? track.artists[0]?.name : 'unknown';
+  const artistName = track.artists ? track.artists.map((artist) => artist.name).join(', ') : 'unknown';
 
   return (
     <Container>

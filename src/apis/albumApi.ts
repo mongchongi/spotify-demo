@@ -1,10 +1,17 @@
 import axios from 'axios';
-import { SPOTIFY_BASE_URL } from '../configs/commonConfig';
+import { PAGE_LIMIT, SPOTIFY_BASE_URL } from '../configs/commonConfig';
 import type { GetNewReleasesResponse } from '../models/album';
 
-export const getNewReleases = async (clientCredentialToken: string): Promise<GetNewReleasesResponse> => {
+export const getNewReleases = async (
+  clientCredentialToken: string,
+  pageParam: number
+): Promise<GetNewReleasesResponse> => {
   try {
-    const response = await axios.get(`${SPOTIFY_BASE_URL}/browse/new-releases?limit=6`, {
+    const response = await axios.get(`${SPOTIFY_BASE_URL}/browse/new-releases`, {
+      params: {
+        limit: PAGE_LIMIT,
+        offset: pageParam,
+      },
       headers: {
         Authorization: `Bearer ${clientCredentialToken}`,
       },

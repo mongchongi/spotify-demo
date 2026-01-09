@@ -29,12 +29,14 @@ const Card = ({ image, name, artistName }: CardProps) => {
 export default Card;
 
 const Container = styled('div')(({ theme }) => ({
+  width: '200px',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   gap: '8px',
   borderRadius: '8px',
   padding: '8px',
+
   '&:hover': {
     background: theme.palette.background.default,
     transform: 'translate3d(0px, 0px, 0px)',
@@ -42,6 +44,10 @@ const Container = styled('div')(({ theme }) => ({
   },
   '&:hover .overlay': {
     opacity: '1',
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    width: '148px',
   },
 }));
 
