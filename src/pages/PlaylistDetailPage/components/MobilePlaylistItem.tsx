@@ -9,7 +9,6 @@ interface MobilePlaylistItemProps {
 }
 
 const MobilePlaylistItem = ({ item }: MobilePlaylistItemProps) => {
-  console.log('🚀 ~ MobilePlaylistItem ~ item:', item);
   const isTrack = (track: Track | Episode): track is Track => {
     return 'album' in track;
   };
