@@ -9,7 +9,7 @@ import ErrorMessage from '../../../common/components/ErrorMessage';
 const CategoryList = () => {
   const { ref, inView } = useInView();
 
-  const { data, isLoading, error, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetCategories({
+  const { data, isCombinedLoading, error, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetCategories({
     locale: 'en_US',
     limit: 9,
   });
@@ -24,7 +24,7 @@ const CategoryList = () => {
     }
   }, [inView, hasNextPage, isFetchingNextPage]);
 
-  if (isLoading) {
+  if (isCombinedLoading) {
     return <LoadingSpinner />;
   }
 

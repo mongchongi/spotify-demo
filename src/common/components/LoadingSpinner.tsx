@@ -21,6 +21,7 @@ const LoadingSpinnerWrapper = styled('div')({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  zIndex: '1000',
 });
 
 const LoadingSpinnerImage = styled('img')({

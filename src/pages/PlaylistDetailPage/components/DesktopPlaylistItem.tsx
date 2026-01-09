@@ -36,7 +36,15 @@ const DesktopPlaylistItem = ({ item, index }: DesktopPlaylistItemProps) => {
   };
 
   return (
-    <StyledTableRow>
+    <StyledTableRow
+      sx={{
+        '&': (theme) => ({
+          [theme.breakpoints.down('sm')]: {
+            display: 'none',
+          },
+        }),
+      }}
+    >
       <TableCell>{index}</TableCell>
       <TableCell>{item.track.name || 'Unknown'}</TableCell>
       <TableCell>{isEpisode(item.track) ? 'N/A' : item.track.album?.name}</TableCell>

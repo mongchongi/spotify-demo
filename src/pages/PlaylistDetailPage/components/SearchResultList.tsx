@@ -65,7 +65,17 @@ const SearchResultList = ({ list, hasNextPage, isFetchingNextPage, fetchNextPage
                     </Box>
                   </AlbumContainer>
                 </TableCell>
-                <TableCell>{track.album?.name}</TableCell>
+                <TableCell
+                  sx={{
+                    '&': (theme) => ({
+                      [theme.breakpoints.down('sm')]: {
+                        display: 'none',
+                      },
+                    }),
+                  }}
+                >
+                  {track.album?.name}
+                </TableCell>
                 <TableCell>
                   <Button onClick={() => handleAddPlaylist(track.uri)}>
                     <AddIcon />
@@ -116,7 +126,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const AlbumContainer = styled(Box)({
   display: 'flex',
-  alignItems: 'flex-end',
+  alignItems: 'center',
   gap: '16px',
 });
 

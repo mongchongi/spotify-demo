@@ -24,6 +24,7 @@ import LoadingSpinner from '../../common/components/LoadingSpinner';
 import SignInButton from '../../common/components/SignInButton';
 import ErrorMessage from '../../common/components/ErrorMessage';
 import axios from 'axios';
+import MobilePlaylistItem from './components/MobilePlaylistItem';
 
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -102,7 +103,15 @@ const PlaylistDetailPage = () => {
       ) : (
         <StyleTableContainer>
           <Table stickyHeader>
-            <TableHead>
+            <TableHead
+              sx={{
+                '&': (theme) => ({
+                  [theme.breakpoints.down('sm')]: {
+                    display: 'none',
+                  },
+                }),
+              }}
+            >
               <TableRow
                 sx={{
                   '& th': {
@@ -122,11 +131,14 @@ const PlaylistDetailPage = () => {
               {playlistItems?.pages.map((page, pageIndex) =>
                 page.items.map((item, itemIndex) => {
                   return (
-                    <DesktopPlaylistItem
-                      key={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                      item={item}
-                      index={pageIndex * PAGE_LIMIT + itemIndex + 1}
-                    />
+                    <>
+                      <DesktopPlaylistItem
+                        key={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                        item={item}
+                        index={pageIndex * PAGE_LIMIT + itemIndex + 1}
+                      />
+                      <MobilePlaylistItem key={pageIndex * PAGE_LIMIT + itemIndex + 1} item={item} />
+                    </>
                   );
                 })
               )}

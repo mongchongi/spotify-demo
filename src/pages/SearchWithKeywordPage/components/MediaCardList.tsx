@@ -68,7 +68,7 @@ const MediaCardList = <T extends Partial<MediaItem>>({
           sx={{
             display: 'flex',
             alignItems: 'flex-end',
-            padding: '0 0 16px',
+            padding: '0 1px 8px',
           }}
         >
           {isFetchingNextPage && <LoadingMessage>Loading...</LoadingMessage>}
@@ -99,7 +99,7 @@ const StyledListItemInfo = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
   flexDirection: 'column',
-  padding: '16px',
+  padding: '8px',
   gap: '8px',
   position: 'relative',
 
@@ -124,6 +124,11 @@ const StyledListItemInfo = styled(Box)(({ theme }) => ({
     visibility: 'hidden',
     opacity: '0',
     transition: 'opacity 0.5s',
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    width: '148px',
+    padding: '8px',
   },
 }));
 

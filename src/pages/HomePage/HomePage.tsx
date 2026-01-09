@@ -7,7 +7,6 @@ import Releases from './components/Releases';
 
 const HomePage = () => {
   const { data, error, isCombinedLoading, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetNewReleases();
-  console.log('🚀 ~ HomePage ~ data:', data);
 
   if (isCombinedLoading) {
     return <LoadingSpinner />;
@@ -19,11 +18,8 @@ const HomePage = () => {
 
   const newReleases =
     data?.pages.flatMap((page) => page.albums?.items ?? []).filter((album): album is SimplifiedAlbum => !!album) ?? [];
-
   const tracks = newReleases?.filter((item) => item.album_type === 'single');
-  console.log('🚀 ~ HomePage ~ tracks:', tracks);
   const albums = newReleases?.filter((item) => item.album_type === 'album');
-  console.log('🚀 ~ HomePage ~ albums:', albums);
 
   return (
     <Container>

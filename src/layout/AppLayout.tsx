@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import LibraryHead from './components/LibraryHead';
 import Library from './components/Library';
 import Navbar from './components/Navbar';
+import MobileNavbar from './components/MobileNavbar';
 
 const AppLayout = () => {
   return (
@@ -43,18 +44,25 @@ const AppLayout = () => {
         <Navbar />
         <Outlet />
       </ContentBox>
+      <MobileNavbar />
     </Container>
   );
 };
 
 export default AppLayout;
 
-const Container = styled('div')({
+const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   height: '100vh',
   padding: '8px',
   gap: '8px',
-});
+
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    padding: '0',
+    gap: '0',
+  },
+}));
 
 const Sidebar = styled('div')(({ theme }) => ({
   width: '331px',
@@ -73,6 +81,11 @@ const ContentBox = styled(Box)(({ theme }) => ({
   color: theme.palette.text.primary,
   width: '100%',
   padding: '8px',
+
+  [theme.breakpoints.down('sm')]: {
+    borderRadius: 'unset',
+    flex: '1',
+  },
 }));
 
 const Menu = styled('nav')({

@@ -42,7 +42,7 @@ const Releases = ({ title, items, hasNextPage, isFetchingNextPage, fetchNextPage
             sx={{
               display: 'flex',
               alignItems: 'flex-end',
-              padding: '0 0 8px',
+              padding: '0 1px 8px',
             }}
           >
             {isFetchingNextPage && <LoadingMessage>Loading...</LoadingMessage>}

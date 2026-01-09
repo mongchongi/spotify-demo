@@ -1,12 +1,17 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import type { CategoryRequest } from '../models/category';
 import { getCategories } from '../apis/CategoryApi';
-import useClientCredentialToken from './useClientCredentialToken';
+import { getClientCredentialToken } from '../apis/authApi';
 
 const useGetCategories = ({ locale, limit }: CategoryRequest) => {
-  const clientCredentialToken = useClientCredentialToken();
+  const { data: tokenData, isLoading: isTokenLoading } = useQuery({
+    queryKey: ['client-credent-token'],
+    queryFn: getClientCredentialToken,
+  });
 
-  return useInfiniteQuery({
+  const clientCredentialToken = tokenData?.access_token;
+
+  const queryResult = useInfiniteQuery({
     queryKey: ['category', locale, limit, clientCredentialToken],
     queryFn: ({ pageParam = 0 }) => {
       if (!clientCredentialToken) {
@@ -27,7 +32,15 @@ const useGetCategories = ({ locale, limit }: CategoryRequest) => {
 
       return undefined;
     },
+    enabled: !!clientCredentialToken,
   });
+
+  const isCombinedLoading = isTokenLoading || (!!clientCredentialToken && queryResult.isLoading);
+
+  return {
+    ...queryResult,
+    isCombinedLoading,
+  };
 };
 
 export default useGetCategories;

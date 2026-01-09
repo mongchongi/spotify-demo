@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useRef } from 'react';
 import { Route, Routes } from 'react-router';
 import LoadingSpinner from './common/components/LoadingSpinner';
 import useExchangeToken from './hooks/useExchangeToken';
+import PlaylistPage from './pages/PlaylistPage/PlaylistPage';
 
 const AppLayout = React.lazy(() => import('./layout/AppLayout'));
 const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'));
@@ -39,7 +40,7 @@ const App = () => {
           <Route path='callback' element={<HomePage />} />
           <Route path='search' element={<SearchPage />} />
           <Route path='search/:keyword' element={<SearchWithKeywordPage />} />
-          {/* <Route path='playlist' element={<PlaylistPage />} /> */}
+          <Route path='playlist' element={<PlaylistPage />} />
           <Route path='playlist/:id' element={<PlaylistDetailPage />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
